@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 
 class VerseDetail extends StatefulWidget {
   final Verse? verse;
-  const VerseDetail({super.key,this.verse});
+  final int? index;
+
+  const VerseDetail({super.key, this.verse, this.index});
 
   @override
   State<VerseDetail> createState() => _VerseDetailState();
@@ -13,21 +15,27 @@ class VerseDetail extends StatefulWidget {
 
 class _VerseDetailState extends State<VerseDetail> {
   @override
-void initState() {
-    if(widget.verse==null){
+  void initState() {
+    if (widget.verse == null) {
       print("null");
-    }else{
+    } else {
       print("${widget.verse}");
     }
     super.initState();
   }
-  Widget build(BuildContext context) {
 
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: Column(
         children: [
-           Text("${widget.verse}"),
+          Text((widget.index == 0)
+              ? "${widget.verse?.en}"
+              : (widget.index == 1)
+                  ? "${widget.verse?.guj}"
+                  : (widget.index == 2)
+                      ? "${widget.verse?.san}"
+                      : "${widget.verse?.hi}"),
         ],
       ),
     );

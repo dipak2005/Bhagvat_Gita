@@ -3,6 +3,7 @@
 import 'package:bhagvat_gita/controller/chapter_provider.dart';
 import 'package:bhagvat_gita/model/allchapter.dart';
 import 'package:bhagvat_gita/model/verse.dart';
+import 'package:bhagvat_gita/view/verse_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,13 @@ class ChapterDetail extends StatefulWidget {
 }
 
 class _ChapterDetailState extends State<ChapterDetail> {
+  List<String> item = [
+    "English",
+    "Gujarati",
+    "Sanskrit",
+    "Hindi",
+  ];
+
   @override
   void initState() {
     // Provider.of<Chapter>(context, listen: false)
@@ -63,9 +71,9 @@ class _ChapterDetailState extends State<ChapterDetail> {
             Align(
               alignment: Alignment.topCenter,
               child: Text(
-                (Provider.of<Chapter>(context, listen: true).value == 1)
+                (Provider.of<Chapter>(context, listen: true).value == 0)
                     ? "${widget.chapters?.nameTranslation}"
-                    : (Provider.of<Chapter>(context, listen: false).value == 2)
+                    : (Provider.of<Chapter>(context, listen: false).value == 1)
                         ? "${widget.chapters?.nameMeaning}"
                         : "${widget.chapters?.name}",
                 style: TextStyle(
@@ -87,7 +95,7 @@ class _ChapterDetailState extends State<ChapterDetail> {
                         maxLines: (show.more == true) ? null : 5,
                         overflow:
                             (show.more == true) ? null : TextOverflow.ellipsis,
-                        (show.value == 1)
+                        (show.value == 0)
                             ? "${widget.chapters?.chSummery}"
                             : "${widget.chapters?.chSummeryHindi}",
                         style: TextStyle(
@@ -120,23 +128,52 @@ class _ChapterDetailState extends State<ChapterDetail> {
                 );
               },
             ),
-            CupertinoSegmentedControl(
-                // thumbColor: Colors.orange,
-                // backgroundColor: Colors.orange,
-                borderColor: Colors.orange,
-                pressedColor: Colors.orange,
-                children: {
-                  1: Text(
-                    " English ",
+            Consumer<Chapter>(
+              builder: (context, value, child) {
+                return SizedBox(
+                  height: MediaQuery.sizeOf(context).height / 18,
+                  child: ListView.builder(
+                    clipBehavior: Clip.antiAlias,
+                    itemCount: item.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      var it = item[index];
+                      return InkWell(
+                        onTap: () {
+                          value.toGGelIndex(index);
+                        },
+                        radius: 30,
+                        child: Container(
+                          height: MediaQuery.sizeOf(context).height,
+                          width: MediaQuery.sizeOf(context).width / 5,
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                              color: value.value == index
+                                  ? Colors.orange
+                                  : Colors.white,
+                              border: Border.all(
+                                  color: value.value == index
+                                      ? Colors.transparent
+                                      : Colors.black.withOpacity(0.3),
+                                  width: 2),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                              child: Text(
+                            it,
+                            style: TextStyle(
+                                color: value.value == index
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 17),
+                          )),
+                        ),
+                      );
+                    },
                   ),
-                  2: Text(" Gujarati "),
-                  3: Text(" Hindi "),
-                  4: Text(" Sanskrit "),
-                },
-                onValueChanged: (value) {
-                  Provider.of<Chapter>(context, listen: false)
-                      .toGGelIndex(value);
-                }),
+                );
+              },
+            ),
             Consumer<Chapter>(
               builder: (context, show, child) {
                 return SizedBox(
@@ -155,9 +192,16 @@ class _ChapterDetailState extends State<ChapterDetail> {
                           : Column(
                               children: [
                                 ListTile(
-                                   onTap: () {
-                                     Navigator.pushNamed(context, "VerseDetail",arguments: sh);
-                                   },
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) {
+                                        return VerseDetail(
+                                          verse: sh,
+                                          index: show.value,
+                                        );
+                                      },
+                                    ));
+                                  },
                                   title: Text(
                                     "verse ${sh?.verse}",
                                     style: TextStyle(
@@ -166,13 +210,13 @@ class _ChapterDetailState extends State<ChapterDetail> {
                                         fontWeight: FontWeight.w700),
                                   ),
                                   subtitle: Text(
-                                    (show.value == 1)
+                                    (show.value == 0)
                                         ? "${sh?.en}"
-                                        : (show.value == 2)
+                                        : (show.value == 1)
                                             ? "${sh?.guj}"
-                                            : (show.value == 3)
-                                                ? "${sh?.hi}"
-                                                : "${sh?.san}",
+                                            : (show.value == 2)
+                                                ? "${sh?.san}"
+                                                : "${sh?.hi}",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black,

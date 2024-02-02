@@ -14,7 +14,7 @@ class Chapter extends ChangeNotifier {
   List<Verse> vList = [];
   bool more = false;
 
-  int? value;
+  int value=0;
 
   void changeIndex(int index) {
     chapterIndex = index;
@@ -53,7 +53,7 @@ class Chapter extends ChangeNotifier {
  //  }
 
   void toGGelIndex(int? value) {
-    this.value = value;
+    this.value = value!;
     notifyListeners();
   }
 

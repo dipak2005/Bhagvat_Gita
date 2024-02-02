@@ -108,68 +108,68 @@ class _HomeState extends State<Home> {
             ),
           ),
           Consumer<Chapter>(
-                  builder: (BuildContext context, chapter, Widget? child) {
-                    if(chapter.acList.isEmpty){
-                      return  Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.orange,
+            builder: (BuildContext context, chapter, Widget? child) {
+              if (chapter.acList.isEmpty) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.orange,
+                  ),
+                );
+              }
+              return Expanded(
+                child: ListView.builder(
+                  itemCount: chapter.acList.length,
+                  itemBuilder: (context, index) {
+                    var ch = chapter.acList[index];
+                    // var vs = chapter.vList[index];
+                    return ListTile(
+                      onTap: () {
+                        Provider.of<Chapter>(context, listen: false)
+                            .chapterIndex = index;
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return ChapterDetail(
+                              index: index,
+                              chapters: ch,
+                              verse: ch.verse,
+                            );
+                          },
+                        ));
+                      },
+                      leading: CircleAvatar(
+                        child: Text(
+                          "${ch.id}",
+                          style: TextStyle(
+                              color: Colors.deepOrange,
+                              fontWeight: FontWeight.w900),
                         ),
-                      );
-                    }
-                    return Expanded(
-                      child: ListView.builder(
-                        itemCount: chapter.acList.length,
-                        itemBuilder: (context, index) {
-                          var ch = chapter.acList[index];
-                          // var vs = chapter.vList[index];
-                          return ListTile(
-                            onTap: () {
-                              Provider.of<Chapter>(context, listen: false)
-                                  .chapterIndex = index;
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return ChapterDetail(
-                                    index: index,
-                                    chapters: ch,
-                                    verse: ch.verse,
-                                  );
-                                },
-                              ));
-                            },
-                            leading: CircleAvatar(
-                              child: Text(
-                                "${ch.id}",
-                                style: TextStyle(
-                                    color: Colors.deepOrange,
-                                    fontWeight: FontWeight.w900),
-                              ),
-                              backgroundColor: Colors.orangeAccent,
-                            ),
-                            title: Text(
-                              "${ch.name}",
-                              style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.orange),
-                            ),
-                            subtitle: Text(
-                              "${ch.verseCount} verse",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 15),
-                            ),
-                            trailing: IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.arrow_forward_ios,
-                                // color: Colors.orange,
-                              ),
-                            ),
-                          );
-                        },
+                        backgroundColor: Colors.orangeAccent,
+                      ),
+                      title: Text(
+                        "${ch.name}",
+                        style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.orange),
+                      ),
+                      subtitle: Text(
+                        "${ch.verseCount} verse",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 15),
+                      ),
+                      trailing: IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.arrow_forward_ios,
+                          // color: Colors.orange,
+                        ),
                       ),
                     );
                   },
-                )
+                ),
+              );
+            },
+          )
         ],
       ),
     );
