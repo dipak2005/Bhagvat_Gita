@@ -260,10 +260,22 @@ class _HomeState extends State<Home> {
                             fontWeight: FontWeight.w500, fontSize: 15),
                       ),
                       trailing: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Provider.of<Chapter>(context, listen: false)
+                              .chapterIndex = index;
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return ChapterDetail(
+                                index: index,
+                                chapters: ch,
+                                verse: ch.verse,
+                              );
+                            },
+                          ));
+                        },
                         icon: Icon(
                           Icons.arrow_forward_ios,
-                          // color: Colors.orange,
+                          color: Colors.orange,
                         ),
                       ),
                     );
