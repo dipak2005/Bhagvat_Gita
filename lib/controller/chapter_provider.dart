@@ -13,8 +13,8 @@ class Chapter extends ChangeNotifier {
   List<Chapters> acList = [];
   List<Verse> vList = [];
   bool more = false;
-
-  int value=0;
+  List<Verse> recentList = [];
+  int value = 0;
 
   void changeIndex(int index) {
     chapterIndex = index;
@@ -40,17 +40,21 @@ class Chapter extends ChangeNotifier {
     jsonDecode(fileData);
     acList = chaptersFromJson(fileData);
     notifyListeners();
-
   }
 
- // Future<void> getSlcOk(String url) async {
- //    var slOck =
- //        await rootBundle.loadString(url);
- //        jsonDecode(slOck);
- //      vList=  verseFromJson(slOck);
- //      notifyListeners();
- //
- //  }
+  // Future<void> getSlcOk(String url) async {
+  //    var slOck =
+  //        await rootBundle.loadString(url);
+  //        jsonDecode(slOck);
+  //      vList=  verseFromJson(slOck);
+  //      notifyListeners();
+  //
+  //  }
+
+  void recentAdd(Verse verse) {
+    recentList.add(verse);
+    notifyListeners();
+  }
 
   void toGGelIndex(int? value) {
     this.value = value!;
