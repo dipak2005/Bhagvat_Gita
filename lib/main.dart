@@ -28,21 +28,27 @@ class _Bhagvat_GitaState extends State<Bhagvat_Gita> {
         ChangeNotifierProvider(
           create: (context) => Chapter(),
         ),
-
       ],
       builder: (context, child) => MaterialApp(
         title: "Bhagvat Gita",
         debugShowCheckedModeBanner: false,
         checkerboardOffscreenLayers: true,
         themeAnimationCurve: Curves.linear,
-        theme: ThemeData(useMaterial3: true,),
+        theme: Provider.of<Chapter>(context, listen: false).isDark
+            ? ThemeData.dark(useMaterial3: true)
+            : ThemeData.light(
+                useMaterial3: true,
+                ),
+        themeMode: Provider.of<Chapter>(context, listen: false).isDark
+            ? ThemeMode.dark
+            : ThemeMode.light,
         initialRoute: "/",
         routes: {
           "/": (context) => Splash(),
-          "Splash1":(context) => Splash1(),
-          "Home":(context) => Home(),
-          "ChapterDetail":(context) => ChapterDetail(),
-          "VerseDetail":(context) =>VerseDetail(),
+          "Splash1": (context) => Splash1(),
+          "Home": (context) => Home(),
+          "ChapterDetail": (context) => ChapterDetail(),
+          "VerseDetail": (context) => VerseDetail(),
         },
       ),
     );

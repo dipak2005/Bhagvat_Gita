@@ -62,6 +62,16 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text("Bhagvat Gita", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.orange,
+        actions: [
+          Consumer<Chapter>(
+              builder: (context, value, child) => IconButton(
+                  onPressed: () {
+                    value.changeTheme();
+                  },
+                  icon: Icon(value.isDark
+                      ? Icons.light_mode_outlined
+                      : Icons.dark_mode_outlined))),
+        ],
       ),
       body: Column(
         children: [
@@ -134,9 +144,9 @@ class _HomeState extends State<Home> {
                                     Text(
                                       "Verse ${value.acList[index].chNumber}.${value.acList[index].verse?[index].verse ?? 0}",
                                       style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.black),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -148,7 +158,6 @@ class _HomeState extends State<Home> {
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         fontSize: 14,
-                                        color: Colors.black,
                                         fontWeight: FontWeight.w600),
                                     (value.value == 0)
                                         ? "${value.recentList.last.en}"

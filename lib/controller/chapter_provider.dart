@@ -15,6 +15,12 @@ class Chapter extends ChangeNotifier {
   bool more = false;
   List<Verse> recentList = [];
   int value = 0;
+bool isDark=false;
+
+  void changeTheme(){
+    isDark=!isDark;
+    notifyListeners();
+  }
 
   void changeIndex(int index) {
     chapterIndex = index;
