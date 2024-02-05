@@ -34,12 +34,13 @@ class _Bhagvat_GitaState extends State<Bhagvat_Gita> {
         debugShowCheckedModeBanner: false,
         checkerboardOffscreenLayers: true,
         themeAnimationCurve: Curves.linear,
-        theme: Provider.of<Chapter>(context, listen: false).isDark
-            ? ThemeData.dark(useMaterial3: true)
-            : ThemeData.light(
-                useMaterial3: true,
-                ),
-        themeMode: Provider.of<Chapter>(context, listen: false).isDark
+        theme: ThemeData.light(
+          useMaterial3: true,
+        ),
+        darkTheme: ThemeData.dark(useMaterial3: true),
+        themeMode: Provider.of<Chapter>(
+          context,
+        ).isDark
             ? ThemeMode.dark
             : ThemeMode.light,
         initialRoute: "/",

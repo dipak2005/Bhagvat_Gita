@@ -15,10 +15,10 @@ class Chapter extends ChangeNotifier {
   bool more = false;
   List<Verse> recentList = [];
   int value = 0;
-bool isDark=false;
+  bool isDark = false;
 
-  void changeTheme(){
-    isDark=!isDark;
+  void changeTheme() {
+    isDark = !isDark;
     notifyListeners();
   }
 
