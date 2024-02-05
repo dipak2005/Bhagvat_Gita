@@ -17,4 +17,6 @@
 # Screen Shorts (ss):
 <img src> ![g1](https://github.com/dipak2005/Bhagvat_Gita/assets/143473007/eba0d959-9bb1-4aeb-b980-5c1f1c720942)
 <img src> ![g5 (1)](https://github.com/dipak2005/Bhagvat_Gita/assets/143473007/834c3a02-512c-45cc-bf4c-89d2d1966239)
+# Screen Recoding
+https://drive.google.com/drive/u/0/folders/1oDj_mID6SL78Qstn46UdYFmTQtP_j8Zi
 
